@@ -1,0 +1,57 @@
+# Dockerの中にボリュームというデータを保持する領域を確保
+volumes:
+  handson-db-data:
+
+services:
+  # データベース（mysql）
+  handson-db:
+    image: mysql:8.0.23
+    container_name: my-db
+    # mysqlコンテナがデータを保管する場所とコンテナが保持する領域を紐づける
+    volumes:
+      - 'handson-db-data:/var/lib/mysql'
+    ports:
+      - '3308:3306'
+    environment:
+      # rootユーザーのパス（必須）
+      - 'MYSQL_ROOT_PASSWORD=root'
+      # 初期作成されるDB名（任意）
+      - 'MYSQL_DATABASE=my-db'
+      # 作成されるユーザー名（任意）
+      - 'MYSQL_USER=my-user'
+      # ユーザーのパス（任意）
+      - 'MYSQL_PASSWORD=my-user'
+      - 'TZ=Asia/Tokyo'
+
+  # バックエンド（django）
+  handson-back:
+    container_name: my-back
+    # docker build で指定するDockerfileの場所
+    build: ./back
+    # ポートの指定
+    ports:
+      - '8000:8000'
+    # ファイルシステムのマウント設定
+    volumes:
+      - './back/code:/code'
+    # バッシュを開くためのコマンド
+    tty: true
+    stdin_open: true
+
+    depends_on:
+      - handson-db
+
+  # フロントエンド（React）
+  handson-front:
+    container_name: my-front
+    # docker build で指定するDockerfileの場所
+    build: ./front
+    # ポートの指定
+    ports:
+      - '3000:3000'
+    # ファイルシステムのマウント設定
+    volumes:
+      - './front/code:/code'
+    # バッシュを開くためのコマンド
+    tty: true
+    stdin_open: true

@@ -1,0 +1,25 @@
+{
+    // コンテナに関する設定
+    "name": "handson-front",
+    "dockerComposeFile": [
+      "../docker-compose.yml"
+    ],
+    "service": "handson-front",
+    "shutdownAction": "none",
+    "workspaceFolder": "/code",
+  
+    // コンテナにつなげるVS Codeの拡張機能設定
+    "extensions": [
+      "dsznajder.es7-react-js-snippets",
+      "esbenp.prettier-vscode",
+      "CoenraadS.bracket-pair-colorizer-2"
+    ],
+  
+    // コンテナにつなげるVS Codeの設定
+    "settings": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true,
+      "prettier.singleQuote": false,
+      "prettier.jsxSingleQuote": false
+    }
+  }

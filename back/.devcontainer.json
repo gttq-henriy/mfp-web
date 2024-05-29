@@ -1,0 +1,21 @@
+{
+    // コンテナに関する設定
+    "name": "handson-back",
+    "dockerComposeFile": [
+      "../docker-compose.yml"
+    ],
+    "service": "handson-back",
+    "shutdownAction": "none",
+    "workspaceFolder": "/code",
+    // コンテナにつなげるVS Codeの拡張機能設定
+    "extensions": [
+      "ms-python.python",
+      "CoenraadS.bracket-pair-colorizer-2"
+    ],
+    // コンテナにつなげるVS Codeの設定
+    "settings": {
+      "python.formatting.provider": "black",
+      "editor.defaultFormatter": null,
+      "editor.formatOnSave": true
+    }
+  }
